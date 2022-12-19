@@ -6,8 +6,10 @@ import {
   UserGroupIcon,
   HeartIcon,
   PaperAirplaneIcon,
-  MenuIcon,
+  Bars3Icon,
+  ChatBubbleOvalLeftEllipsisIcon
 } from '@heroicons/react/24/outline'
+import { HomeIcon } from '@heroicons/react/24/solid'
 
 
 function Header() {
@@ -15,7 +17,7 @@ function Header() {
     <div>
 
       <div
-        className='flex justify-between bg-white max-w-6xl'
+        className='flex justify-between bg-white max-w-6xl mx-5 lg:mx-auto'
       >
         {/* Left */}
         <div
@@ -64,6 +66,21 @@ function Header() {
         </div>
 
         {/* Right */}
+        <div className='flex items-center justify-end space-x-4'>
+          <HomeIcon className='navBtn' />
+          <Bars3Icon className='h-6 md:hidden cursor-pointer' />
+
+          <div className='relative navBtn'>
+            <ChatBubbleOvalLeftEllipsisIcon className='navBtn' />
+            <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
+          </div>
+          <PlusCircleIcon className='navBtn' />
+          <UserGroupIcon className='navBtn' />
+          <HeartIcon className='navBtn' />
+
+          <img src='https://i.ibb.co/9ynhXSR/paimoncashhd.jpg' alt='Profile picture' className='h-10 w-auto rounded-full cursor-pointer' />
+          
+        </div>
 
 
       </div>
