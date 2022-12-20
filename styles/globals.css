@@ -6,4 +6,32 @@
     .navBtn {
         @apply hidden h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out;
     }
+
+    .drop-navBtn {
+        @apply md:hidden h-6 inline-flex mr-2;
+    }
+
+    .dropbtn {
+        @apply text-black bg-white
+    }
+
+    .dropdown {
+        @apply relative inline-block
+    }
+    
+    .dropdown-content {
+        @apply hidden absolute -right-8 bg-gray-200 rounded-lg shadow-md z-10 min-w-max 
+    }
+
+    .drop-text {
+        @apply text-sm text-gray-700 font-bold mx-4
+    }
+
+    .drop-link {
+        @apply cursor-pointer my-2 hover:scale-110 transition-all duration-150 ease-out hover:bg-gray-300 hover:rounded-lg
+    }
+
+    .dropdown:hover .dropdown-content {
+        @apply block transition hover:ease-out duration-300
+    }
 }

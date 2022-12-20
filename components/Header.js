@@ -68,8 +68,36 @@ function Header() {
 
         {/* Right */}
         <div className='flex items-center justify-end space-x-4'>
+          <div className="ml-10 dropdown transition-all ease-in">
+            <Bars3Icon className='h-6 md:hidden cursor-pointer' />
+            <div class="dropdown-content">
+                <div className='drop-link'>
+                    <span className='drop-text'>Home</span>
+                    <HomeIcon className='drop-navBtn' />
+                </div>
+                <div className='drop-link flex'>
+                    <span className='drop-text'>Messages</span>
+                    <div className='relative drop-navBtn'>
+                        <ChatBubbleOvalLeftEllipsisIcon className='drop-navBtn align-center' />
+                        <div className='absolute -top-2 right-0 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
+                    </div>
+                </div>
+
+                <div className='drop-link'>
+                    <span className='drop-text'>Publish</span>
+                    <PlusCircleIcon className='drop-navBtn' />
+                </div>
+                <div className='drop-link'>
+                    <span className='drop-text'>Explore</span>
+                    <UserGroupIcon className='drop-navBtn' />
+                </div>
+                <div className='drop-link'>
+                    <span className='drop-text'>Activity</span>
+                    <HeartIcon className='drop-navBtn' />
+                </div>
+            </div>
+          </div>
           <HomeIcon className='navBtn' />
-          <Bars3Icon className='h-6 md:hidden cursor-pointer' />
 
           <div className='relative navBtn'>
             <ChatBubbleOvalLeftEllipsisIcon className='navBtn' />
