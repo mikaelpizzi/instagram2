@@ -70,7 +70,7 @@ function Header() {
         <div className='flex items-center justify-end space-x-4'>
           <div className="ml-10 dropdown transition-all ease-in">
             <Bars3Icon className='h-6 md:hidden cursor-pointer' />
-            <div class="dropdown-content">
+            <div className="dropdown-content">
                 <div className='drop-link'>
                     <span className='drop-text'>Home</span>
                     <HomeIcon className='drop-navBtn' />
