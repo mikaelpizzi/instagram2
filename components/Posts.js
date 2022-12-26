@@ -4,14 +4,14 @@ const posts = [
     {
         id: 123,
         username: 'Ganyu',
-        userImg: 'https://links.papareact.com/ocw',
+        userImg: 'https://i.ibb.co/9ynhXSR/paimoncashhd.jpg',
         img: 'https://links.papareact.com/ocw',
         caption: 'AWESOME CONTENT'
     },
     {
         id: 456,
         username: 'Keqing',
-        userImg: 'https://links.papareact.com/ocw',
+        userImg: 'https://i.ibb.co/9ynhXSR/paimoncashhd.jpg',
         img: 'https://links.papareact.com/ocw',
         caption: 'INCREDIBLE!!!'
     }
