@@ -7,7 +7,10 @@ import {
   PaperAirplaneIcon,
   Bars3Icon,
   ChatBubbleOvalLeftEllipsisIcon,
+  ChatBubbleOvalLeftIcon,
   EllipsisHorizontalIcon,
+  ChatBubbleLeftIcon,
+  BookmarkIcon,
 } from '@heroicons/react/24/outline'
 import { HomeIcon } from '@heroicons/react/24/solid'
 
@@ -34,7 +37,18 @@ function Post({ id, username, userImg, img, caption }) {
         alt={`Image posted by ${username} saying: ${caption}`}
         className='object-cover w-full'
       />
+
       {/* Buttons */}
+      <div className='flex justify-between px-4 pt-4 pb-2'>
+        <div className='flex space-x-4 items-center'>
+          <HeartIcon className='btn' />
+          <ChatBubbleOvalLeftIcon className='btn' />
+          <PaperAirplaneIcon className='btn -rotate-45 mb-[5px]' />
+        </div>
+        <div>
+          <BookmarkIcon className='btn' />
+        </div>
+      </div>
       {/* Caption */}
       {/* Comments */}
       {/* Input box */}
