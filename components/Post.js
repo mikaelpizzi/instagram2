@@ -11,6 +11,7 @@ import {
   EllipsisHorizontalIcon,
   ChatBubbleLeftIcon,
   BookmarkIcon,
+  FaceSmileIcon,
 } from '@heroicons/react/24/outline'
 import { HomeIcon } from '@heroicons/react/24/solid'
 import ReadMore from './ReadMore'
@@ -59,11 +60,23 @@ function Post({ id, username, userImg, img, caption }) {
           text={caption}
         />
       </div>
+
       {/* Comments */}
+
       {/* Input box */}
+      <form className='flex items-center p-4'>
+        <FaceSmileIcon className='h-7 cursor-pointer' />
+        <input 
+          type='text' 
+          placeholder='Add a comment...'
+          className='border-none flex-1 focus:ring-0 outline-none'
+        />
+        <button className='font-semibold text-blue-500'>Post</button>
+      </form>
 
     </div>
   )
 }
 
 export default Post
+ 
