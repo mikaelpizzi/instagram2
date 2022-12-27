@@ -13,9 +13,11 @@ import {
   BookmarkIcon,
 } from '@heroicons/react/24/outline'
 import { HomeIcon } from '@heroicons/react/24/solid'
+import ReadMore from './ReadMore'
 
 function Post({ id, username, userImg, img, caption }) {
   return (
+
     <div className='bg-white my-7 border rounded-sm'>
 
       {/* Header */}
@@ -49,7 +51,14 @@ function Post({ id, username, userImg, img, caption }) {
           <BookmarkIcon className='btn' />
         </div>
       </div>
+
       {/* Caption */}
+      <div className='p-5'>
+        <span className='font-bold mr-1'>{username} </span>
+        <ReadMore
+          text={caption}
+        />
+      </div>
       {/* Comments */}
       {/* Input box */}
 
