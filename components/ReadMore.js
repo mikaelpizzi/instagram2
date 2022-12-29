@@ -12,7 +12,7 @@ const ReadMore = ({ text }) => {
         ? null : 
         (
             <span onClick={toggleReadMore} className="cursor-pointer text-gray-400">
-                {isReadMore ? " ...read more" : " show less"} 
+                {isReadMore ? " ...Read more" : " Show less"} 
             </span>
         ) }
     </p>
