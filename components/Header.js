@@ -10,9 +10,14 @@ import {
   ChatBubbleOvalLeftEllipsisIcon
 } from '@heroicons/react/24/outline'
 import { HomeIcon } from '@heroicons/react/24/solid'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 
 function Header() {
+  const { data: session } = useSession();
+
+  console.log(session);
+
   return (
     <div
       className='shadow-sm border-b bg-white sticky top-0 z-50'
@@ -68,50 +73,70 @@ function Header() {
 
         {/* Right */}
         <div className='flex items-center justify-end space-x-4'>
-          <div className="ml-10 dropdown transition-all ease-in">
-            <Bars3Icon className='h-6 md:hidden cursor-pointer' />
-            <div className="dropdown-content">
-                <div className='drop-link'>
-                    <span className='drop-text'>Home</span>
-                    <HomeIcon className='drop-navBtn' />
-                </div>
-                <div className='drop-link flex'>
-                    <span className='drop-text'>Messages</span>
-                    <div className='relative drop-navBtn'>
-                        <ChatBubbleOvalLeftEllipsisIcon className='drop-navBtn align-center' />
-                        <div className='absolute -top-2 right-0 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
+
+          { session ? (
+            <div className="ml-10 dropdown transition-all ease-in">
+              <Bars3Icon className='h-6 md:hidden cursor-pointer' />
+              <div className="dropdown-content">
+                  <div className='drop-link'>
+                      <span className='drop-text'>Home</span>
+                      <HomeIcon className='drop-navBtn' />
+                  </div>
+                  <div className='drop-link flex'>
+                      <span className='drop-text'>Messages</span>
+                      <div className='relative drop-navBtn'>
+                          <ChatBubbleOvalLeftEllipsisIcon className='drop-navBtn align-center' />
+                          <div className='absolute -top-2 right-0 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
+                      </div>
+                  </div>
+
+                  <div className='drop-link'>
+                      <span className='drop-text'>Publish</span>
+                      <PlusCircleIcon className='drop-navBtn' />
+                  </div>
+                  <div className='drop-link'>
+                      <span className='drop-text'>Explore</span>
+                      <UserGroupIcon className='drop-navBtn' />
+                  </div>
+                  <div className='drop-link'>
+                      <span className='drop-text'>Activity</span>
+                      <HeartIcon className='drop-navBtn' />
+                  </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="ml-10 dropdown transition-all ease-in">
+                <Bars3Icon className='h-6 md:hidden cursor-pointer' />
+                <div className="dropdown-content">
+                    <div className='drop-link'>
+                        <span className='drop-text'>Home</span>
+                        <HomeIcon className='drop-navBtn' />
                     </div>
                 </div>
-
-                <div className='drop-link'>
-                    <span className='drop-text'>Publish</span>
-                    <PlusCircleIcon className='drop-navBtn' />
-                </div>
-                <div className='drop-link'>
-                    <span className='drop-text'>Explore</span>
-                    <UserGroupIcon className='drop-navBtn' />
-                </div>
-                <div className='drop-link'>
-                    <span className='drop-text'>Activity</span>
-                    <HeartIcon className='drop-navBtn' />
-                </div>
-            </div>
-          </div>
+              </div>
+            </>
+          ) }
           <HomeIcon className='navBtn' />
 
-          <div className='relative navBtn'>
-            <ChatBubbleOvalLeftEllipsisIcon className='navBtn' />
-            <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
-          </div>
-          <PlusCircleIcon className='navBtn' />
-          <UserGroupIcon className='navBtn' />
-          <HeartIcon className='navBtn' />
-
-          <img src='https://i.ibb.co/9ynhXSR/paimoncashhd.jpg' alt='Profile picture' className='h-10 w-auto rounded-full cursor-pointer' />
-          
+          { session ? (
+            <>
+              <div className='relative navBtn'>
+                <ChatBubbleOvalLeftEllipsisIcon className='navBtn' />
+                <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
+              </div>
+              <PlusCircleIcon className='navBtn' />
+              <UserGroupIcon className='navBtn' />
+              <HeartIcon className='navBtn' />
+              <img 
+                onClick={signOut}
+                src={session.user.image} 
+                alt='Profile picture' 
+                className='h-10 w-10 rounded-full cursor-pointer' 
+              />
+            </>
+          ) : ( <button onClick={signIn}>Sign in</button> )}
         </div>
-
-
       </div>
     </div>
   )
