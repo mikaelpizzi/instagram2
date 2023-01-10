@@ -11,16 +11,19 @@ import {
 } from '@heroicons/react/24/outline'
 import { HomeIcon } from '@heroicons/react/24/solid'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 
 function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div
       className='shadow-sm border-b bg-white sticky top-0 z-50'
     >
       <div
+        onClick={() => router.push('/')}
         className='flex justify-between bg-white max-w-6xl mx-5 lg:mx-auto'
       >
         {/* Left */}
@@ -40,6 +43,7 @@ function Header() {
         </div>
 
         <div
+          onClick={() => router.push('/')}
           className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer'
         >
           <Image 
@@ -76,9 +80,14 @@ function Header() {
             <div className="ml-10 dropdown transition-all ease-in">
               <Bars3Icon className='h-6 md:hidden cursor-pointer' />
               <div className="dropdown-content">
-                  <div className='drop-link'>
+                  <div 
+                    className='drop-link' 
+                  >
                       <span className='drop-text'>Home</span>
-                      <HomeIcon className='drop-navBtn' />
+                      <HomeIcon 
+                        onClick={() => router.push('/')}
+                        className='drop-navBtn' 
+                      />
                   </div>
                   <div className='drop-link flex'>
                       <span className='drop-text'>Messages</span>
@@ -107,15 +116,23 @@ function Header() {
               <div className="ml-10 dropdown transition-all ease-in">
                 <Bars3Icon className='h-6 md:hidden cursor-pointer' />
                 <div className="dropdown-content">
-                    <div className='drop-link'>
+                    <div 
+                      className='drop-link'
+                    >
                         <span className='drop-text'>Home</span>
-                        <HomeIcon className='drop-navBtn' />
+                        <HomeIcon 
+                          className='drop-navBtn' 
+                          onClick={() => router.push('/')}
+                        />
                     </div>
                 </div>
               </div>
             </>
           ) }
-          <HomeIcon className='navBtn' />
+          <HomeIcon 
+            onClick={() => router.push('/')}
+            className='navBtn' 
+          />
 
           { session ? (
             <>
