@@ -101,7 +101,9 @@ function Header() {
 
                   <div className='drop-link'>
                       <span className='drop-text'>Publish</span>
-                      <PlusCircleIcon className='drop-navBtn' />
+                      <PlusCircleIcon 
+                        onClick={() => setOpen(true)}
+                        className='drop-navBtn' />
                   </div>
                   <div className='drop-link'>
                       <span className='drop-text'>Explore</span>
@@ -142,7 +144,10 @@ function Header() {
                 <ChatBubbleOvalLeftEllipsisIcon className='navBtn' />
                 <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white'>3</div>
               </div>
-              <PlusCircleIcon className='navBtn' />
+              <PlusCircleIcon 
+                onClick={() => setOpen(true)}
+                className='navBtn'
+              />
               <UserGroupIcon className='navBtn' />
               <HeartIcon className='navBtn' />
               <img 
