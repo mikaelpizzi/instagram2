@@ -8,6 +8,7 @@ function Modal() {
     const [ open, setOpen ] = useRecoilState(modalState);
     const filePickerRef = useRef(null);
     const [ selectedFile, setSelectedFile ] = useState(null);
+    const captionRef = useRef(null);
 
     const addImageToPost = e => {
         const reader = new FileReader();
