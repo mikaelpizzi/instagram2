@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react';
 import { ref, getDownloadURL, uploadString } from 'firebase/storage';
 
 function Modal() {
-    const { data: session } = useSession;
+    const { data: session } = useSession();
     const [ open, setOpen ] = useRecoilState(modalState);
     const filePickerRef = useRef(null);
     const [ selectedFile, setSelectedFile ] = useState(null);
@@ -153,7 +153,7 @@ function Modal() {
                                         <input
                                             className='border-none focus:ring-0 w-full text-center'
                                             type='text'
-                                            // ref={captionRef}
+                                            ref={captionRef}
                                             placeholder='Please enter a caption'
                                             />
                                     </div>
