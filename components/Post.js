@@ -17,7 +17,7 @@ import { HomeIcon } from '@heroicons/react/24/solid'
 import ReadMore from './ReadMore'
 import { useSession } from 'next-auth/react'
 import { async } from '@firebase/util'
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import Moment from 'react-moment'
 
@@ -26,6 +26,7 @@ function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
   const [ comment, setComment ] = useState('');
   const [ comments, setComments ] = useState([]);
+  const [ likes, setLikes ] = useState([]);
 
   useEffect(() => 
     onSnapshot(
@@ -35,7 +36,20 @@ function Post({ id, username, userImg, img, caption }) {
       ), 
       snapshot => setComments(snapshot.docs)
     ), 
-  [db]);
+  [db, id]);
+
+  useEffect(() => 
+    onSnapshot(
+      collection(db, 'posts', id, 'likes'), 
+      snapshot => setLikes(snapshot.docs)
+    ), 
+  [db, id]);
+
+  const likePost = async () => {
+    await setDoc(doc(db, 'posts', id, 'likes', session.user.userid), {
+      username: session.user.username,
+    });
+  }
 
   const sendComment = async (e) => {
     e.preventDefault();
@@ -80,7 +94,10 @@ function Post({ id, username, userImg, img, caption }) {
       { session && (
         <div className='flex justify-between px-4 pt-4 pb-2'>
           <div className='flex space-x-4 items-center'>
-            <HeartIcon className='btn' />
+            <HeartIcon 
+              onClick={likePost}
+              className='btn' 
+            />
             <ChatBubbleOvalLeftIcon className='btn' />
             <PaperAirplaneIcon className='btn -rotate-45 mb-[5px]' />
           </div>
