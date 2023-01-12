@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   MagnifyingGlassIcon,
   PlusCircleIcon,
@@ -16,10 +16,39 @@ import {
 import { HomeIcon } from '@heroicons/react/24/solid'
 import ReadMore from './ReadMore'
 import { useSession } from 'next-auth/react'
+import { async } from '@firebase/util'
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
+import { db } from '../firebase'
 
 function Post({ id, username, userImg, img, caption }) {
 
   const { data: session } = useSession();
+  const [ comment, setComment ] = useState('');
+  const [ comments, setComments ] = useState([]);
+
+  useEffect(() => 
+    onSnapshot(
+      query(
+        collection(db, 'posts', id, 'comments'), 
+        orderBy('timestamp', 'desc')
+      ), 
+      snapshot => setComments(snapshot.docs)
+    ), 
+  [db]);
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+
+    const commentToSend = comment;
+    setComment('');
+
+    await addDoc(collection(db, 'posts', id, 'comments'), {
+      comment: commentToSend,
+      username: session.user.username,
+      userImage: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+  }
 
   return (
 
@@ -75,11 +104,17 @@ function Post({ id, username, userImg, img, caption }) {
         <form className='flex items-center p-4'>
           <FaceSmileIcon className='h-7 cursor-pointer' />
           <input 
-            type='text' 
+            type='text'
+            value={comment}
+            onChange={e => setComment(e.target.value)}
             placeholder='Add a comment...'
             className='border-none flex-1 focus:ring-0 outline-none'
             />
-          <button className='font-semibold text-blue-500'>Post</button>
+          <button
+            type='submit'
+            disabled={!comment.trim()}
+            onClick={sendComment}
+            className='font-semibold text-blue-500'>Post</button>
         </form>
       )}
 
