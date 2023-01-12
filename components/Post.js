@@ -17,7 +17,7 @@ import { HomeIcon } from '@heroicons/react/24/solid'
 import ReadMore from './ReadMore'
 import { useSession } from 'next-auth/react'
 import { async } from '@firebase/util'
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import Moment from 'react-moment'
 
@@ -27,6 +27,7 @@ function Post({ id, username, userImg, img, caption }) {
   const [ comment, setComment ] = useState('');
   const [ comments, setComments ] = useState([]);
   const [ likes, setLikes ] = useState([]);
+  const [ hasLiked, setHasLiked ] = useState(false);
 
   useEffect(() => 
     onSnapshot(
@@ -45,10 +46,20 @@ function Post({ id, username, userImg, img, caption }) {
     ), 
   [db, id]);
 
+  useEffect(() =>
+    setHasLiked(
+      likes.findIndex(like => like.id === session?.user?.userid) !== -1
+    ),
+  [likes]);
+
   const likePost = async () => {
-    await setDoc(doc(db, 'posts', id, 'likes', session.user.userid), {
-      username: session.user.username,
-    });
+    if (hasLiked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.userid));
+    } else {
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.userid), {
+        username: session.user.username,
+      });
+    }
   }
 
   const sendComment = async (e) => {
