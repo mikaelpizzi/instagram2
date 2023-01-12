@@ -13,7 +13,7 @@ import {
   BookmarkIcon,
   FaceSmileIcon,
 } from '@heroicons/react/24/outline'
-import { HomeIcon } from '@heroicons/react/24/solid'
+import { HomeIcon, HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import ReadMore from './ReadMore'
 import { useSession } from 'next-auth/react'
 import { async } from '@firebase/util'
@@ -105,10 +105,17 @@ function Post({ id, username, userImg, img, caption }) {
       { session && (
         <div className='flex justify-between px-4 pt-4 pb-2'>
           <div className='flex space-x-4 items-center'>
-            <HeartIcon 
-              onClick={likePost}
-              className='btn' 
-            />
+            { hasLiked ? (
+              <HeartIconFilled
+                onClick={likePost}
+                className='btn text-red-500' 
+              />
+            ) : (
+              <HeartIcon 
+                onClick={likePost}
+                className='btn' 
+              />
+            )}
             <ChatBubbleOvalLeftIcon className='btn' />
             <PaperAirplaneIcon className='btn -rotate-45 mb-[5px]' />
           </div>
@@ -120,6 +127,19 @@ function Post({ id, username, userImg, img, caption }) {
 
       {/* Caption */}
       <div className='p-5'>
+        { likes.length > 0 && (
+          <>
+            { likes.length === 1 ? (
+              <p
+              className='font-bold mb-1'
+              >{likes.length} like</p>
+            ) : (
+              <p
+              className='font-bold mb-1'
+              >{likes.length} likes</p>
+              )}
+          </>
+        )}
         <span className='font-bold mr-1'>{username} </span>
         <ReadMore
           text={caption}
