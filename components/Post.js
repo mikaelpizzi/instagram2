@@ -19,6 +19,7 @@ import { useSession } from 'next-auth/react'
 import { async } from '@firebase/util'
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import Moment from 'react-moment'
 
 function Post({ id, username, userImg, img, caption }) {
 
@@ -98,6 +99,43 @@ function Post({ id, username, userImg, img, caption }) {
       </div>
 
       {/* Comments */}
+      { comments.length > 0 && (
+        <div
+          className='ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'
+        >
+          { comments.map(comment => (
+            <div
+              key={comment.id}
+              className='flex items-center space-x-2 mb-3'
+            >
+              <img
+                src={comment.data().userImage}
+                alt='User image of the author of the comment'
+                className='h-7 rounded-full'
+              />
+
+              <p
+                className='text-sm flex-1'
+              >
+                <span 
+                  className='font-bold'
+                >
+                  {comment.data().username}
+                </span>
+                {' '}
+                {comment.data().comment}
+              </p>
+
+              <Moment
+                fromNow
+                className='pr-5 text-xs'
+              >
+                {comment.data().timestamp?.toDate()}
+              </Moment>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Input box */}
       { session && (
